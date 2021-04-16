@@ -12,7 +12,11 @@ from src.gbc_predict import *
 
 
 app = Flask(__name__)
+with open('models/GBCmodel.pkl', 'rb') as f:
+    model = pickle.load(f)
 
+with open('models/GBCmodelScaler.pkl', 'rb') as f:
+    scaler = pickle.load(f)
 @app.route('/')
 @app.route('/home')
 def home():
@@ -42,11 +46,7 @@ def predict():
 
 
 if __name__=="__main__":
-    with open('models/GBCmodel.pkl', 'rb') as f:
-        model = pickle.load(f)
 
-    with open('models/GBCmodelScaler.pkl', 'rb') as f:
-        scaler = pickle.load(f)
     
     
     app.run(debug=True)
