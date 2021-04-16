@@ -1,6 +1,6 @@
 import time
 import requests
-import pymongo
+#import pymongo
 class EventAPIClient1:
     """Realtime Events API Client"""
     def __init__(self, first_sequence_number=0,
