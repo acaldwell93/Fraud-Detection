@@ -17,6 +17,8 @@ with open('../models/GBCmodel.pkl', 'rb') as f:
 
 with open('../models/GBCmodelScaler.pkl', 'rb') as f:
     scaler = pickle.load(f)
+
+client = EventAPIClient1()
 @app.route('/')
 @app.route('/home')
 def home():
@@ -31,7 +33,7 @@ def about():
 
 @app.route('/predict')
 def predict():
-    client = EventAPIClient1()
+    
     row = client.collect()
     data =pd.DataFrame(row)
     
