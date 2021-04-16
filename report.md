@@ -53,5 +53,7 @@ Loss matrix:
 
 In order to focus on the rest of the production pipeline, we put a halt on finishing and integrating an NLP model with our Gradient Boosting Classifier. We would also like to spend more time engineering more useful features and interpreting/visualizing the feature importances, beyond identifying some of the most valuable features for classification: previous payouts, user age, gts, and sale duration.
 
+Another focus we really wanted to do was utilizing neural networks to process the TF-IDF matrix after preprocessing with SVD or NMF to decrease the input size.
+
 
 
