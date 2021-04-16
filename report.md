@@ -22,4 +22,4 @@ Obviously, it was important to preserve all of these steps as a preprocessing pi
 
 ### Metrics selection
 
-As mentioned previously, the task is to identify fraud cases, but with fraud being a relatively infrequent class, alternatives to accuracy must be used. In particular, using an ROC-AUC score and visualizing with the ROC curve will be useful in maximizing our our true positive identifications of fraud and minimizing our false positive rate. 
+As mentioned previously, the task is to identify fraud cases, but with fraud being a relatively infrequent class, alternatives to accuracy must be used. In particular, using an ROC-AUC score and visualizing with the ROC curve will be useful in maximizing our true positive identifications of fraud and minimizing our false positive rate. 
