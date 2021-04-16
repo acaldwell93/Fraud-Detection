@@ -39,7 +39,7 @@ def predict():
     X = get_example_X_y(data, scaler)
 
 
-    pred =model.predict(X)
+    pred =model.predict_proba(X)
     return render_template('results.html', pred=pred, name=data['name'] )
     
 
