@@ -16,7 +16,10 @@ def prepare_data(df):
     num_cols = (df.dtypes != object).values
     num_df = df.iloc[:,num_cols].copy()
     
-    num_df['previous_payouts'] = df['previous_payouts'].apply(lambda x: sum([payout['amount'] for payout in x]))
+    if 'previous_payouts' in df:
+        num_df['previous_payouts'] = df['previous_payouts'].apply(lambda x: sum([payout['amount'] for payout in x]))
+    else:
+        num_df['previous_payouts'] = 0
         
     num_df2 = one_hot(num_df)
     
