@@ -40,7 +40,7 @@ def predict():
 
 
     pred =model.predict_proba(X)
-    return render_template('results.html', pred=np.around(pred[1], decimals=4), name=data['name'][0] )
+    return render_template('results.html', pred=np.around(pred[0][1], decimals=4), name=data['name'][0] )
     
 
 
