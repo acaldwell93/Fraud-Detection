@@ -40,7 +40,7 @@ def predict():
 
 
     pred =model.predict(X)
-    return render_template('results.html', pred=pred, name =data[name])
+    return render_template('results.html', pred=pred)
     
 
 
