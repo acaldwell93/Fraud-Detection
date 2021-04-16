@@ -17,7 +17,7 @@ def prepare_data(df):
     num_df = df.iloc[:,num_cols].copy()
     
     
-    num_df['previous_payouts'] = df['previous_payouts'].apply(lambda x: ast.literal_eval(x))
+    #num_df['previous_payouts'] = df['previous_payouts'].apply(lambda x: ast.literal_eval(x))
     num_df['previous_payouts'] = num_df['previous_payouts'].apply(lambda x: sum([payout['amount'] for payout in x]))
         
     num_df2 = one_hot(num_df)
