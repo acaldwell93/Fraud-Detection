@@ -37,7 +37,7 @@ The Gradient Boosting Classifier shows clear improvement over the Logistic Regre
 
 ![](images/conf_mat_new.png)
 
-![](images/profit_losses.JPG)
+![](images/Profit_losses.JPG)
 
 ### Further steps
 
