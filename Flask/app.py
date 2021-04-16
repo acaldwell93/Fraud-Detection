@@ -7,8 +7,8 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from io import BytesIO
 import base64
 import random
-from ..src.API import *
-from ..src.gbc_predict import * 
+from src.API import *
+from src.gbc_predict import * 
 
 
 app = Flask(__name__)
