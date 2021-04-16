@@ -7,6 +7,8 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from io import BytesIO
 import base64
 import random
+from src.API import *
+
 
 app = Flask(__name__)
 
@@ -24,7 +26,7 @@ def about():
 
 @app.route('/predict')
 def predict():
-    data1= request.form['a']
+    data1= request.
 
 
     arr = np.array([data1])
