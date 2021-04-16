@@ -37,10 +37,21 @@ The Gradient Boosting Classifier shows clear improvement over the Logistic Regre
 
 ![](images/conf_mat_new.png)
 
+### Profits/Losses
+
+By summing up the number of tickets sold x cost of tickets for the *fraudulent* accounts we found the average loss per case of fraud is $461.79. We assumed the cost to investigate a fraudulent flag to be 2 hours at $12.50/hr. This allowed us to create a loss matrix to compare model results.
+
+Loss matrix:
+| |Predict Not Fraud| Predict Fraud|
+|---|---|---|
+|True Not Fraud | $0  | -$25  |
+| True Fraud|-$461.79  |  -$25 |
+
+![](images/Profit_losses.JPG)
 
 ### Further steps
 
 In order to focus on the rest of the production pipeline, we put a halt on finishing and integrating an NLP model with our Gradient Boosting Classifier. We would also like to spend more time engineering more useful features and interpreting/visualizing the feature importances, beyond identifying some of the most valuable features for classification: previous payouts, user age, gts, and sale duration.
 
-The average loss per case of fraud is $461.79. Cost of a false negative. Cost of investigating a possible fraud case is unknown.
+
 
