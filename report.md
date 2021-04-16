@@ -35,7 +35,7 @@ The Gradient Boosting Classifier shows clear improvement over the Logistic Regre
 
 ![](images/gbc_metrics.png)
 
-![](images/confusion_matrix.png)
+![](images/conf_mat_new.png)
 
 
 ### Further steps
