@@ -16,9 +16,7 @@ def prepare_data(df):
     num_cols = (df.dtypes != object).values
     num_df = df.iloc[:,num_cols].copy()
     
-    
-    #num_df['previous_payouts'] = df['previous_payouts'].apply(lambda x: ast.literal_eval(x))
-    num_df['previous_payouts'] = num_df['previous_payouts'].apply(lambda x: sum([payout['amount'] for payout in x]))
+    num_df['previous_payouts'] = df['previous_payouts'].apply(lambda x: sum([payout['amount'] for payout in x]))
         
     num_df2 = one_hot(num_df)
     
@@ -27,11 +25,14 @@ def prepare_data(df):
     num_df2['sale_duration'].fillna(np.mean(num_df2['sale_duration']), inplace=True)
     num_df2['event_published'].fillna(np.mean(num_df2['event_published']), inplace=True)
 
-    num_df2['has_lat_long'] = num_df2.apply(lambda x: has_lat_long(x['venue_latitude'], x['venue_longitude']), axis=1)
-
-    num_df3 = num_df2.drop(columns=['venue_latitude', 'venue_longitude'])
-
-    final_df = num_df3[['approx_payout_date', 'body_length', 'channels', 'event_created',
+    if 'venue_latitude' in num_df2:
+        num_df2['has_lat_long'] = num_df2.apply(lambda x: has_lat_long(x['venue_latitude'], x['venue_longitude']), axis=1)
+        num_df3 = num_df2.drop(columns=['venue_latitude', 'venue_longitude'])
+    else:
+        num_df2['has_lat_long'] = 0
+        num_df3 = num_df2
+    
+    column_list = ['approx_payout_date', 'body_length', 'channels', 'event_created',
        'event_end', 'event_published', 'event_start', 'fb_published', 'gts',
        'has_analytics', 'has_logo', 'name_length', 'num_order', 'num_payouts',
        'object_id', 'org_facebook', 'org_twitter', 'sale_duration',
@@ -39,7 +40,13 @@ def prepare_data(df):
        'previous_payouts', 'delivery_method_1.0', 'delivery_method_3.0',
        'delivery_method_nan', 'has_header_1.0', 'has_header_nan',
        'user_type_2.0', 'user_type_3.0', 'user_type_4.0', 'user_type_5.0',
-       'user_type_103.0', 'user_type_nan', 'has_lat_long']]
+       'user_type_103.0', 'user_type_nan', 'has_lat_long']
+    
+    for col in column_list:
+        if col not in num_df3:
+            num_df3[col] = 0
+
+    final_df = num_df3[column_list]
     return final_df
 
 def has_lat_long(lat, long):
@@ -51,21 +58,40 @@ def has_lat_long(lat, long):
         return 1
 
 def one_hot(df):
-    df['delivery_method_1.0'] = (df['delivery_method'] == 1).astype(int)
-    df['delivery_method_3.0'] = (df['delivery_method'] == 3).astype(int)
-    df['delivery_method_nan'] = (df['delivery_method'] == np.nan).astype(int)
+    if 'delivery_method' in df:
+        df['delivery_method_1.0'] = (df['delivery_method'] == 1).astype(int)
+        df['delivery_method_3.0'] = (df['delivery_method'] == 3).astype(int)
+        df['delivery_method_nan'] = (df['delivery_method'] == np.nan).astype(int)
+        df = df.drop(columns='delivery_method')
+    else:
+        df['delivery_method_1.0'] = 0
+        df['delivery_method_3.0'] = 0
+        df['delivery_method_nan'] = 1
 
-    df['has_header_1.0'] = (df['has_header'] == 1).astype(int)
-    df['has_header_nan'] = (df['has_header'] == np.nan).astype(int)
+    if 'has_header' in df:
+        df['has_header_1.0'] = (df['has_header'] == 1).astype(int)
+        df['has_header_nan'] = (df['has_header'] == np.nan).astype(int)
+        df = df.drop(columns='has_header')
+    else:
+        df['has_header_1.0'] = 0
+        df['has_header_nan'] = 1
 
-    df['user_type_2.0'] = (df['user_type'] == 2).astype(int)
-    df['user_type_3.0'] = (df['user_type'] == 3).astype(int)
-    df['user_type_4.0'] = (df['user_type'] == 4).astype(int)
-    df['user_type_5.0'] = (df['user_type'] == 5).astype(int)
-    df['user_type_103.0'] = (df['user_type'] == 103).astype(int)
-    df['user_type_nan'] = (df['user_type'] == np.nan).astype(int)
-
-    return df.drop(columns=['delivery_method', 'has_header', 'user_type'])
+    if 'user_type' in df:
+        df['user_type_2.0'] = (df['user_type'] == 2).astype(int)
+        df['user_type_3.0'] = (df['user_type'] == 3).astype(int)
+        df['user_type_4.0'] = (df['user_type'] == 4).astype(int)
+        df['user_type_5.0'] = (df['user_type'] == 5).astype(int)
+        df['user_type_103.0'] = (df['user_type'] == 103).astype(int)
+        df['user_type_nan'] = (df['user_type'] == np.nan).astype(int)
+        df = df.drop(columns='user_type')
+    else:
+        df['user_type_2.0'] = 0
+        df['user_type_3.0'] = 0
+        df['user_type_4.0'] = 0
+        df['user_type_5.0'] = 0
+        df['user_type_103.0'] = 0
+        df['user_type_nan'] = 1
+    return df
 
 
 
