@@ -12,10 +12,10 @@ from src.gbc_predict import *
 
 
 app = Flask(__name__)
-with open('models/GBCmodel.pkl', 'rb') as f:
+with open('../models/GBCmodel.pkl', 'rb') as f:
     model = pickle.load(f)
 
-with open('models/GBCmodelScaler.pkl', 'rb') as f:
+with open('../models/GBCmodelScaler.pkl', 'rb') as f:
     scaler = pickle.load(f)
 @app.route('/')
 @app.route('/home')
