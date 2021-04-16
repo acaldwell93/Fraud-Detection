@@ -45,9 +45,11 @@ def predict(data=data):
     
     data['prediction'] = np.around(pred[:,1], decimals=4)
     data['risk'] = data['prediction'].apply(lambda x: "High" if x > .6 else "Medium" if x > .3 else "Low")
+    df=data[['name','prediction','risk']]
+        
 
-    
-    return render_template('results.html', data=data[['name','prediction','risk']],pred=0, name=data['name'].values )
+        
+    return render_template('results.html', tables=[df.to_html(classes='data')], titles=df.columns.values ,pred=0, name=data['name'].values )
     
 
 

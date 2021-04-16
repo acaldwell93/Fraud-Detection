@@ -13,10 +13,11 @@
   </style>
 
 <h3>
-  Case name: {{name}} 
-  Chance of fraud: {{pred}}
+  {% for table in tables %}
+    {{titles[loop.index]}}
+      {{ table|safe }}
+  
 
-  {{data}}
 </h2>
 
 <img src="{{ image }}"/>
