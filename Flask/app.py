@@ -35,11 +35,12 @@ def predict():
     row = client.collect()
     data =pd.DataFrame(row)
     
+    
     X = get_example_X_y(data, scaler)
 
 
     pred =model.predict(X)
-    return render_template('results.html', data=pred)
+    return render_template('results.html', pred=pred, name =data[name])
     
 
 
