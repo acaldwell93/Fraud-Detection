@@ -12,14 +12,14 @@
   }
   </style>
 
-<h1>
-  Is it Fraud?: {{name}} 
-  {{pred}}
+<h3>
+  Case name: {{name}} 
+  Chance of fraud: {{pred}}
 </h2>
 
 <img src="{{ image }}"/>
 
 <form action="{{url_for('predict')}}">
-  <input type="submit" value="Predict again" />
+  <input type="submit" value="Refresh" />
   </form>
 {% endblock content %}
