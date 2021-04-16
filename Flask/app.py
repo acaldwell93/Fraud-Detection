@@ -39,10 +39,13 @@ def predict():
     
     
     X = get_example_X_y(data, scaler)
-
-
     pred =model.predict_proba(X)
-    return render_template('results.html', pred=np.around(pred[0][1], decimals=4), name=data['name'][0] )
+    
+    data['prediction'] = np.around(pred[:,1], decimals=4)
+    data['risk'] = data['prediction'].apply(lambda x: "High" if x > .6 else "Medium" if x > .3 else "Low")
+
+    
+    return render_template('results.html', data=data[['name','prediction','risk']],pred=0, name=data['name'].values )
     
 
 
