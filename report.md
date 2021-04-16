@@ -22,4 +22,25 @@ Obviously, it was important to preserve all of these steps as a preprocessing pi
 
 ### Metrics selection
 
-As mentioned previously, the task is to identify fraud cases, but with fraud being a relatively infrequent class, alternatives to accuracy must be used. In particular, using an ROC-AUC score and visualizing with the ROC curve will be useful in maximizing our true positive identifications of fraud and minimizing our false positive rate. 
+As mentioned previously, the task is to identify fraud cases, but with fraud being a relatively infrequent class, alternatives to accuracy must be used. In particular, using an ROC-AUC score and visualizing with the ROC curve will be useful in maximizing our true positive identifications of fraud and minimizing our false positive rate. Other useful measures will be precision, recall, and their harmonic mean, f1-score. These metrics will give us a much better idea of how good our model is at specifically at detecting fraud.
+
+### Validation, testing, and hyperparameter tuning.
+
+We decided to test two types of models on the numerical/categorical data: a Logistic Regression and a Gradient Boosting Classifier. In order to get the best possible performance out of each model type, we performed a Randomized Grid Search with cross-validation. We tested a wide variety of class weights, l1 vs. l2 regularization, regularization coefficients for the Logistic Regression, as well as learning rate, subsample size, max features, max depth, number of estimators for the Gradient Boosting Classifier. We selected the version of the model with the best roc-auc score, and compared them:
+
+![](images/ROC.png)
+
+
+The Gradient Boosting Classifier shows clear improvement over the Logistic Regression Model. In particular, we found success with a GBC that decreased the default subsample size and the learning rate while increasing the number of estimators. This seemed to strike a decent balance in the bias/variance tradeoff. Here are our final metrics after a 5-fold cross validation on our final GBC model:
+
+![](images/gbc_metrics.png)
+
+![](images/confusion_matrix.png)
+
+
+### Further steps
+
+In order to focus on the rest of the production pipeline, we put a halt on finishing and integrating an NLP model with our Gradient Boosting Classifier. We would also like to spend more time engineering more useful features and interpreting/visualizing the feature importances, beyond identifying some of the most valuable features for classification: previous payouts, user age, gts, and sale duration.
+
+Most importantly, we haven't fully implemented the 3-class classification combining the fraud-probability with potential cost.
+
