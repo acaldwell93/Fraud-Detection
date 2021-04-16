@@ -7,7 +7,7 @@ def get_text_col(incoming):
   dat = incoming.copy()
   dat['description']=dat['description'].apply(lambda x: BeautifulSoup(x, 'html.parser').get_text())
   dat['org_desc']=dat['org_desc'].apply(lambda x: BeautifulSoup(x, 'html.parser').get_text())
-  dat['Fraud'] = dat['acct_type'].str.contains('fraud')
+#   dat['Fraud'] = dat['acct_type'].str.contains('fraud')
   text_cols = ['description','org_desc','email_domain','org_name','payee_name','name','venue_address','venue_name','venue_state']
   for i in text_cols:
     dat[i] = dat[i].apply(str)
