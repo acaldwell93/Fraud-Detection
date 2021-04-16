@@ -34,7 +34,8 @@ def about():
 
 
 @app.route('/predict')
-def predict():
+def predict(data=data):
+    row = client.collect()
     data = data.append(pd.DataFrame(row), ignore_index=True)
     
     
