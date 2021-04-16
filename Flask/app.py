@@ -8,6 +8,7 @@ from io import BytesIO
 import base64
 import random
 from src.API import *
+from src.gbc_predict import * 
 
 
 app = Flask(__name__)
@@ -26,20 +27,26 @@ def about():
 
 @app.route('/predict')
 def predict():
-    data1= request.
+    client = EventAPIClient1()
+    row = client.collect()
+    data =pd.DataFrame(row)
+    
+    X = get_example_X_y(data, scaler)
 
 
-    arr = np.array([data1])
-
-    pred =model.predict(arr)
+    pred =model.predict(X)
     return render_template('results.html', data=pred)
     
-    
-    
-    return render_template('predict.html')
 
 
 
 
 if __name__=="__main__":
+    with open('models/GBCmodel.pkl', 'rb') as f:
+        model = pickle.load(f)
+
+    with open('models/GBCmodelScaler.pkl', 'rb') as f:
+        scaler = pickle.load(f)
+    
+    
     app.run(debug=True)

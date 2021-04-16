@@ -6,19 +6,17 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, roc_auc_score, precision_score, recall_score, f1_score
 
-def get_example_X_y(datafile, scaler):
-    df = pd.read_csv(datafile, index_col=0)
-    df['fraud'] = df['acct_type'].str.contains('fraud')
-    clean_df = prepare_data(df)
-    X = scaler.transform(clean_df.drop(columns='fraud').values)
-    y = clean_df['fraud'].values.astype(int)
-    return X, y
+def get_example_X_y(row, scaler):
+    #df = pd.read_csv(datafile, index_col=0)
+    clean_df = prepare_data(row)
+    X = scaler.transform(clean_df)
+    return X
 
 def prepare_data(df):
     num_cols = (df.dtypes != object).values
     num_df = df.iloc[:,num_cols].copy()
     
-    num_df['fraud'] = df['fraud']
+    
     num_df['previous_payouts'] = df['previous_payouts'].apply(lambda x: ast.literal_eval(x))
     num_df['previous_payouts'] = num_df['previous_payouts'].apply(lambda x: sum([payout['amount'] for payout in x]))
         
@@ -37,7 +35,7 @@ def prepare_data(df):
        'event_end', 'event_published', 'event_start', 'fb_published', 'gts',
        'has_analytics', 'has_logo', 'name_length', 'num_order', 'num_payouts',
        'object_id', 'org_facebook', 'org_twitter', 'sale_duration',
-       'sale_duration2', 'show_map', 'user_age', 'user_created', 'fraud',
+       'sale_duration2', 'show_map', 'user_age', 'user_created',
        'previous_payouts', 'delivery_method_1.0', 'delivery_method_3.0',
        'delivery_method_nan', 'has_header_1.0', 'has_header_nan',
        'user_type_2.0', 'user_type_3.0', 'user_type_4.0', 'user_type_5.0',
@@ -78,8 +76,8 @@ if __name__ == "__main__":
     with open('models/GBCmodelScaler.pkl', 'rb') as f:
         scaler = pickle.load(f)
 
-    X, y = get_example_X_y('data/test_script_examples.csv', scaler)
-    print(model.predict_proba(X)[np.random.randint(low=0, high=25)])
+    X = get_example_X_y('data/test_script_examples.csv', scaler)
+    print(model.predict_proba(X))
     
     
     # y_pred = model.predict(X)
