@@ -51,6 +51,8 @@ def predict(data=data):
         
     return render_template('results.html', tables=[df.to_html(classes='data')], titles=df.columns.values ,pred=0, name=data['name'].values )
     
+    return render_template("results.html", column_names=df.columns.values, row_data=list(df.values.tolist()),
+                         zip=zip)
 
 
 
