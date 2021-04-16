@@ -42,5 +42,5 @@ The Gradient Boosting Classifier shows clear improvement over the Logistic Regre
 
 In order to focus on the rest of the production pipeline, we put a halt on finishing and integrating an NLP model with our Gradient Boosting Classifier. We would also like to spend more time engineering more useful features and interpreting/visualizing the feature importances, beyond identifying some of the most valuable features for classification: previous payouts, user age, gts, and sale duration.
 
-Most importantly, we haven't fully implemented the 3-class classification combining the fraud-probability with potential cost.
+The average loss per case of fraud is $461.79. Cost of a false negative. Cost of investigating a possible fraud case is unknown.
 
